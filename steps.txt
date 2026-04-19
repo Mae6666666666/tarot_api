@@ -1,0 +1,55 @@
+1) user told to input why they want the reading today
+2) random import used to draw three random cards whether reversed 
+3)information from user goes to an AI which hold
+
+Abes stick to beat you with
+1. user told to input reason
+2. user inputs reason
+3. user asked to select card 1
+4. user sees the card
+5. user told to select card 2
+6. user sees second card
+7. user told to draw a third card
+8. user sees third card
+9. display of users three cards shown together
+10. user gets an overview of the meaning of the three cards and how it links to reason
+
+
+post: "/reason" reason:str
+response: Success
+
+get: "/card" cardNum:int 
+response: card
+
+get: "/overview"
+response: overview:str
+
+
+
+
+
+
+
+
+
+
+Request
+You create the Request
+inside the request for both GET and POST there is:
+- URL
+- Headers
+- Body
+
+URL:     get, post
+Headers:  get, post
+- in the header, you have the *method*. if it is: GET
+- the body will be ignored
+- if the method in header is: POST
+- it will not ignore the body
+
+Body:      post
+
+
+
+Response
+Server creates
