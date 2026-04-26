@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caine's Tarot Reading</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="stars"></div>
+
+  <main class="container">
+    <header>
+      <h1>🔮 Caine's Tarot Reading 🔮</h1>
+      <p class="tagline">Whisper your question to the stars...</p>
+    </header>
+
+    <section id="reason-section" class="panel">
+      <label for="reason-input">Why do you seek a reading today?</label>
+      <textarea id="reason-input" rows="3" placeholder="Speak your reason..."></textarea>
+      <button id="reason-btn">Begin Reading</button>
+    </section>
+
+    <section id="cards-section" class="panel hidden">
+      <h2>Your Three Cards</h2>
+      <div class="cards">
+        <div class="card" data-slot="0">
+          <div class="card-inner">
+            <div class="card-back">★</div>
+            <div class="card-front"></div>
+          </div>
+          <div class="card-label">Situation</div>
+        </div>
+        <div class="card" data-slot="1">
+          <div class="card-inner">
+            <div class="card-back">★</div>
+            <div class="card-front"></div>
+          </div>
+          <div class="card-label">Challenge</div>
+        </div>
+        <div class="card" data-slot="2">
+          <div class="card-inner">
+            <div class="card-back">★</div>
+            <div class="card-front"></div>
+          </div>
+          <div class="card-label">Outcome</div>
+        </div>
+      </div>
+      <button id="draw-btn">Draw Card</button>
+    </section>
+
+    <section id="overview-section" class="panel hidden">
+      <button id="overview-btn">Reveal Interpretation</button>
+      <pre id="overview-text" class="overview"></pre>
+    </section>
+
+    <p id="status" class="status"></p>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  background: radial-gradient(ellipse at top, #1a0b2e 0%, #0a0419 60%, #000 100%);
+  color: #e8d9b0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 80px 120px, #ffd97a, transparent),
+    radial-gradient(1px 1px at 160px 60px, #fff, transparent),
+    radial-gradient(2px 2px at 240px 200px, #ffd97a, transparent),
+    radial-gradient(1px 1px at 320px 90px, #fff, transparent),
+    radial-gradient(1px 1px at 400px 250px, #fff, transparent),
+    radial-gradient(1px 1px at 500px 50px, #ffd97a, transparent),
+    radial-gradient(1px 1px at 600px 180px, #fff, transparent);
+  background-size: 700px 350px;
+  background-repeat: repeat;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+h1 {
+  font-size: 2.6rem;
+  color: #ffd97a;
+  text-shadow: 0 0 20px rgba(255, 217, 122, 0.4);
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-style: italic;
+  color: #b9a6d8;
+  font-size: 1.1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #ffd97a;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.panel {
+  background: rgba(30, 16, 56, 0.7);
+  border: 1px solid rgba(255, 217, 122, 0.25);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 40px rgba(120, 60, 200, 0.15);
+}
+
+.hidden {
+  display: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #d8c8f0;
+}
+
+textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 217, 122, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #e8d9b0;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #ffd97a;
+  box-shadow: 0 0 10px rgba(255, 217, 122, 0.3);
+}
+
+button {
+  background: linear-gradient(135deg, #6b3fa0 0%, #4a2670 100%);
+  color: #ffd97a;
+  border: 1px solid #ffd97a;
+  border-radius: 8px;
+  padding: 0.8rem 1.8rem;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #8b5fc0 0%, #6a3690 100%);
+  box-shadow: 0 0 20px rgba(255, 217, 122, 0.4);
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 150px;
+  text-align: center;
+}
+
+.card-inner {
+  width: 150px;
+  height: 240px;
+  perspective: 1000px;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.card-back,
+.card-front {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: transform 0.8s ease;
+  border: 2px solid #ffd97a;
+  padding: 0.5rem;
+}
+
+.card-back {
+  background: linear-gradient(135deg, #2a1656 0%, #4a2670 100%);
+  font-size: 3rem;
+  color: #ffd97a;
+}
+
+.card-front {
+  background: linear-gradient(135deg, #3a1f6e 0%, #1a0b2e 100%);
+  color: #ffd97a;
+  font-size: 1.05rem;
+  font-weight: bold;
+  transform: rotateY(180deg);
+  text-align: center;
+}
+
+.card.revealed .card-back {
+  transform: rotateY(180deg);
+}
+
+.card.revealed .card-front {
+  transform: rotateY(0deg);
+}
+
+.card-label {
+  color: #b9a6d8;
+  font-size: 0.95rem;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.overview {
+  margin-top: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-left: 3px solid #ffd97a;
+  padding: 1.5rem;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e8d9b0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.overview:empty {
+  display: none;
+}
+
+.status {
+  text-align: center;
+  color: #b9a6d8;
+  font-style: italic;
+  min-height: 1.2em;
+  margin-top: 1rem;
+}

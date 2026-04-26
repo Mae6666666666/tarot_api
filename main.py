@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from cards import tarot_cards
 import random
@@ -14,8 +16,14 @@ import uuid
 
 cards = tarot_cards
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 ai_description = AI_DESCRIPTION
 client = client
+
+
+@app.get("/")
+def index():
+    return FileResponse("static/index.html")
 
 # card_list = []
 # reason_data = ""
