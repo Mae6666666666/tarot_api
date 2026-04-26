@@ -64,7 +64,10 @@ drawBtn.addEventListener("click", async () => {
     if (!Array.isArray(cards)) throw new Error("Unexpected response");
     const newest = cards[cards.length - 1];
     const slot = cardSlots[drawCount];
-    slot.querySelector(".card-front").textContent = newest;
+    const slug = newest.toLowerCase().replace(/ /g, "_");
+    const front = slot.querySelector(".card-front");
+    front.innerHTML = `<img src="/static/cards/${slug}.jpg" alt="${newest}">`;
+    slot.querySelector(".card-name").textContent = newest;
     slot.classList.add("revealed");
     drawCount = cards.length;
 
