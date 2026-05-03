@@ -4,22 +4,45 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from cards import tarot_cards
 import random
-from config import API_KEY, BASE_URL, MODEL
+from config import API_KEY, BASE_URL, MODEL, FIREBASE_WEB_API_KEY
 import json
 import requests
 from ddgs import DDGS
 from openai import OpenAI
 from ai_resources import *
 import uuid
+import firebase_admin
+from firebase_admin import credentials
+import os
+from fastapi import Depends, HTTPException, status                                                                                
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials                                                             
+from firebase_admin import auth  
+
+firebase_path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+
+cred = credentials.Certificate(firebase_path)
+firebase_admin.initialize_app(cred)
+
+
 
 
 
 cards = tarot_cards
 app = FastAPI()
+bearer_scheme = HTTPBearer()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 ai_description = AI_DESCRIPTION
 client = client
 
+def get_current_user(creds: HTTPAuthorizationCredentials = Depends(bearer_scheme)):
+    try:
+        decoded = auth.verify_id_token(creds.credentials)
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+        )
+    return decoded
 
 @app.get("/")
 def index():
@@ -42,6 +65,9 @@ class Reason(BaseModel):
     uuid: str
     reason: str
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str
 
 @app.post("/reason")
 def reason(reason: Reason):
@@ -66,12 +92,52 @@ def get_card(uuid: str):
 
 
 @app.get("/overview")
-def overview(uuid: str):
+def overview(uuid: str, user = Depends(get_current_user)):  
     message = ai_message(card_list=card_list[uuid], reason=reason_data[uuid])
     if len(card_list[uuid]) <= 2:
         return "Not enough cards given. The stars can't work if not enough information is given!"
     else:
         return{"message": message}
+
+@app.post("/login")
+def login(body: LoginRequest):
+    url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_WEB_API_KEY}"  
+    payload = {
+        "email": body.email,
+        "password": body.password,
+        "return_secure_token": True
+    }          
+    response = requests.post(url, json=payload)
+
+    if response.status_code != 200:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORISED,
+            detail="Invalid email or password"
+        )
+    data = response.json()
+    return{"idToken": data["idToken"]}
+
+
+@app.post("/signup")
+def signup(body: LoginRequest):
+    url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={FIREBASE_WEB_API_KEY}"  
+    payload = {
+        "email": body.email,
+        "password": body.password,
+        "return_secure_token": True
+    }          
+    response = requests.post(url, json=payload)
+
+    if response.status_code != 200:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORISED,
+            detail="Invalid email or password"
+        )
+    data = response.json()
+    return{"idToken": data["idToken"]}
+    
+
+   
     
 
 
