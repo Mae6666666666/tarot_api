@@ -88,7 +88,9 @@ label {
   color: #d8c8f0;
 }
 
-textarea {
+textarea,
+input[type="email"],
+input[type="password"] {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 217, 122, 0.3);
@@ -101,10 +103,80 @@ textarea {
   margin-bottom: 1rem;
 }
 
-textarea:focus {
+textarea:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
   outline: none;
   border-color: #ffd97a;
   box-shadow: 0 0 10px rgba(255, 217, 122, 0.3);
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 217, 122, 0.2);
+}
+
+.auth-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #b9a6d8;
+  padding: 0.6rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  margin: 0;
+  display: block;
+}
+
+.auth-tab:hover:not(:disabled) {
+  background: transparent;
+  color: #ffd97a;
+  box-shadow: none;
+  transform: none;
+}
+
+.auth-tab.active {
+  color: #ffd97a;
+  border-bottom-color: #ffd97a;
+}
+
+.auth-error {
+  text-align: center;
+  color: #f0a0a0;
+  font-size: 0.95rem;
+  font-style: italic;
+  min-height: 1.2em;
+  margin-top: 1rem;
+}
+
+.auth-error:empty {
+  display: none;
+}
+
+.auth-note {
+  text-align: center;
+  color: #b9a6d8;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 1rem;
+  opacity: 0.75;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin: 0;
 }
 
 button {

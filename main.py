@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from cards import tarot_cards
 import random
-from config import API_KEY, BASE_URL, MODEL, FIREBASE_WEB_API_KEY
+from config import API_KEY, BASE_URL, MODEL, FIREBASE_WEB_API_KEY, ALLOWED_EMAILS
 import json
 import requests
 from ddgs import DDGS
@@ -70,7 +70,7 @@ class LoginRequest(BaseModel):
     password: str
 
 @app.post("/reason")
-def reason(reason: Reason):
+def reason(reason: Reason, user = Depends(get_current_user)):
     global reason_data
     global card_list
     card_list[reason.uuid] = []
@@ -78,7 +78,7 @@ def reason(reason: Reason):
     return{"reason": reason.reason}
 
 @app.get("/get_card")
-def get_card(uuid: str):
+def get_card(uuid: str, user = Depends(get_current_user)):
     if uuid not in reason_data:
         return "No reason given, so I can't consult the stars..."
     
@@ -99,38 +99,51 @@ def overview(uuid: str, user = Depends(get_current_user)):
     else:
         return{"message": message}
 
+def check_email_allowed(email: str):
+    if email.lower() not in {e.lower() for e in ALLOWED_EMAILS}:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You're not allowed in this web."
+        )
+
+
 @app.post("/login")
 def login(body: LoginRequest):
+    check_email_allowed(body.email)
     url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_WEB_API_KEY}"  
     payload = {
         "email": body.email,
         "password": body.password,
-        "return_secure_token": True
+        "returnSecureToken": True
     }          
     response = requests.post(url, json=payload)
 
     if response.status_code != 200:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORISED,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
     data = response.json()
     return{"idToken": data["idToken"]}
 
 
+            
+        
+
 @app.post("/signup")
 def signup(body: LoginRequest):
+    check_email_allowed(body.email)
     url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={FIREBASE_WEB_API_KEY}"  
     payload = {
         "email": body.email,
         "password": body.password,
-        "return_secure_token": True
+        "returnSecureToken": True
     }          
     response = requests.post(url, json=payload)
 
     if response.status_code != 200:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORISED,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
     data = response.json()

@@ -13,9 +13,24 @@
     <header>
       <h1>🔮 Caine's Tarot Reading 🔮</h1>
       <p class="tagline">Whisper your question to the stars...</p>
+      <button id="logout-btn" class="logout-btn hidden">Sign out</button>
     </header>
 
-    <section id="reason-section" class="panel">
+    <section id="auth-section" class="panel">
+      <div class="auth-tabs">
+        <button type="button" id="tab-login" class="auth-tab active">Sign In</button>
+        <button type="button" id="tab-signup" class="auth-tab">Sign Up</button>
+      </div>
+      <label for="email-input">Email</label>
+      <input id="email-input" type="email" placeholder="you@example.com" autocomplete="email" />
+      <label for="password-input">Password</label>
+      <input id="password-input" type="password" placeholder="At least 6 characters" autocomplete="current-password" />
+      <button id="auth-btn">Sign In</button>
+      <p id="auth-note" class="auth-note hidden">Sign-up is invite-only. Contact the admin if your email isn't on the list.</p>
+      <p id="auth-error" class="auth-error"></p>
+    </section>
+
+    <section id="reason-section" class="panel hidden">
       <label for="reason-input">Why do you seek a reading today?</label>
       <textarea id="reason-input" rows="3" placeholder="Speak your reason..."></textarea>
       <button id="reason-btn">Begin Reading</button>

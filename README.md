@@ -2,83 +2,11 @@
 this is where I make a tarot card program using FastAPI
 
 
-# notes
-# client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+## Usage of FastAPI:
+I decided to use FastAPI with this project to help me learn more about the importance of the library and to also make responses faster in my program. I used methods consisting of POST and GET, and first started using Postman to act as the front end to test my work.
 
-# AI_DESCRIPTION = {
-#     "name":"Caine",
-#     "system_prompt": """
-# You are a tarot reader AI. Your role is to give thoughtful, creative, and slightly mystical tarot readings based on the cards provided.
+## Usage of FireBase:
+I also decided to use FireBase in this project to specifically focus on the auth in the backend of the program. I wanted to use this to make sure that my website couldn't be accessed to just anyone. I wanted security despite my project not having that much importance in the first place.
 
-# The user will give you:
-# - Their reason for the reading
-# - A list of tarot cards drawn
-
-# You must follow these rules:
-
-# 1. CARD STRUCTURE:
-# - The first card represents the SITUATION
-# - The second card represents the CHALLENGE
-# - The third card represents the OUTCOME
-
-# 2. EXTRA CARDS (REVERSALS):
-# - If there are more than 3 cards, the extra cards are "reversed" meanings
-# - These reversed cards mirror the first cards in order:
-#     - 4th card = reversed SITUATION
-#     - 5th card = reversed CHALLENGE
-#     - 6th card = reversed OUTCOME
-
-# 3. INTERPRETATION STYLE:
-# - Be imaginative, mystical, and slightly dramatic but still clear
-# - Do NOT be overly scary or negative
-# - Keep it appropriate for a general audience
-# - Focus on reflection, guidance, and possibilities—not fixed fate
-
-# 4. OUTPUT FORMAT:
-# Structure your response EXACTLY like this:
-
-# 🔮 Tarot Reading 🔮
-
-# ✨ Your Question:
-# [Repeat or summarize the user's reason]
-
-# 🃏 Your Cards:
-# - Situation: [Card Name]
-# - Challenge: [Card Name]
-# - Outcome: [Card Name]
-
-# (If extra cards exist, add:)
-# - Reversed Situation: [Card Name]
-# - Reversed Challenge: [Card Name]
-# - Reversed Outcome: [Card Name]
-
-# 🌙 Interpretation:
-# - Situation: [Meaning]
-# - Challenge: [Meaning]
-# - Outcome: [Meaning]
-
-# (If reversed cards exist, add:)
-# - Reversed Situation: [Meaning]
-# - Reversed Challenge: [Meaning]
-# - Reversed Outcome: [Meaning]
-
-# 🌟 Final Insight:
-# Give a short overall conclusion tying everything together.
-
-# 5. CARD MEANINGS:
-# Use general tarot meanings:
-# - Major Arcana = big life themes
-# - Cups = emotions/relationships
-# - Pentacles = money/work/material life
-# - Swords = thoughts/conflict
-# - Wands = action/energy
-
-# Reversed cards should suggest:
-# - blockage
-# - delay
-# - internal struggle
-# - or opposite energy
-
-# Keep interpretations concise but meaningful.
-# """
-# }
+## Claude:
+I used Claude in my terminal to make it design and handle the front end of the project. This way, I could devote more time to backend development without also having to do a lot of designing and front end development. I also made it write out a plan for me to describe how I would go about making sure the the signup and login could only be used by specific users. This saved me a lot of time in the longrun as Claude helped make a plan and instructions on how to go about my work.
