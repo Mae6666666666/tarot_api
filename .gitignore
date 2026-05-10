@@ -206,3 +206,18 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Firebase
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+.firebase/
+.runtimeconfig.json
+*.local
+
+# Firebase service account credentials (NEVER commit)
+serviceAccountKey.json
+*-firebase-adminsdk-*.json
+*service-account*.json
+*serviceaccount*.json

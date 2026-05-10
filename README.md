@@ -10,3 +10,6 @@ I also decided to use FireBase in this project to specifically focus on the auth
 
 ## Claude:
 I used Claude in my terminal to make it design and handle the front end of the project. This way, I could devote more time to backend development without also having to do a lot of designing and front end development. I also made it write out a plan for me to describe how I would go about making sure the the signup and login could only be used by specific users. This saved me a lot of time in the longrun as Claude helped make a plan and instructions on how to go about my work.
+
+## Sun 10 May 2026
+started to migrate all my FastAPI code to FireBase functions

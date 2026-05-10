@@ -1,0 +1,25 @@
+from firebase_functions import https_fn
+
+
+@https_fn.on_request()
+def hello(req: https_fn.Request) -> https_fn.Response:
+    word = req.args.get("word", "")
+    return https_fn.Response(f"hallo {word}")
+
+
+@https_fn.on_request()
+def combine(req: https_fn.Request) -> https_fn.Response:
+    if req.method != "POST":
+        return https_fn.Response("Use POST", status=405)
+
+    data = req.get_json(silent=True) or {}
+    a = data.get("a", "")
+    b = data.get("b", "")
+    c = data.get("c", "")
+
+    return https_fn.Response(f"a={a}, b={b}, c={c} -> {a}{b}{c}")
+
+@https_fn.on_request()
+def mae(req: https_fn.Request) -> https_fn.Response:
+    word = req.args.get("fun", "")
+    return https_fn.Response(f"This is very {word}")
