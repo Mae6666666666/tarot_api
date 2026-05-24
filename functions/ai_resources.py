@@ -1,7 +1,6 @@
 from config import API_KEY, BASE_URL, MODEL
 import json
 import requests
-from ddgs import DDGS
 from openai import OpenAI
 
 
