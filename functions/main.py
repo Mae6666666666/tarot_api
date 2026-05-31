@@ -21,10 +21,19 @@ ai_description = AI_DESCRIPTION
 
 fun_times="Coding with abe"
 
+def get_allowed_emails() -> set:
+    db = firestore.client()
+    doc_ref = db.collection("config").document("access")
+    doc = doc_ref.get()
+    if not doc.exists:
+        doc_ref.set({"allowed_emails": list(ALLOWED_EMAILS)})
+        return set(ALLOWED_EMAILS)
+    data = doc.to_dict()
+    return set(data.get("allowed_emails", []))
+
 def check_email_allowed(email: str) -> bool:
-    # email.lower at first converts email to lowercase and then checks to see if its in allowed emails
-    # with the following inside the {}
-    return email.lower() in {email.lower() for email in ALLOWED_EMAILS}
+    allowed_emails = get_allowed_emails()
+    return email.lower() in {email.lower() for email in allowed_emails}
 
 @https_fn.on_request()
 def signup(req: https_fn.Request) -> https_fn.Response:
