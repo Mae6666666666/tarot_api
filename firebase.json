@@ -12,5 +12,20 @@
         "*.local"
       ]
     }
-  ]
+  ],
+  "hosting": {
+    "public": "static",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      { "source": "/signup", "function": "signup" },
+      { "source": "/login", "function": "login" },
+      { "source": "/reason", "function": "reason" },
+      { "source": "/get_card", "function": "get_card" },
+      { "source": "/overview", "function": "overview" }
+    ]
+  }
 }

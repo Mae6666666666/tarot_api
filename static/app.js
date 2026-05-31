@@ -138,15 +138,6 @@ logoutBtn.addEventListener("click", () => {
   showAuth();
 });
 
-async function ensureUuid() {
-  if (uuid) return uuid;
-  const res = await fetch("/get_id");
-  const data = await res.json();
-  uuid = typeof data === "string" ? data : String(data);
-  sessionStorage.setItem("tarot_uuid", uuid);
-  return uuid;
-}
-
 reasonBtn.addEventListener("click", async () => {
   const reason = reasonInput.value.trim();
   if (!reason) {
@@ -156,14 +147,17 @@ reasonBtn.addEventListener("click", async () => {
   reasonBtn.disabled = true;
   setStatus("Consulting the cosmos...");
   try {
-    await ensureUuid();
     const res = await fetch("/reason", {
       method: "POST",
       headers: { "Content-Type": "application/json", ...authHeaders() },
-      body: JSON.stringify({ uuid, reason }),
+      body: JSON.stringify({ reason }),
     });
     if (res.status === 401) return handleAuthFailure();
     if (!res.ok) throw new Error("Reason rejected");
+    const data = await res.json();
+    if (!data.uuid) throw new Error("No uuid returned by the server.");
+    uuid = data.uuid;
+    sessionStorage.setItem("tarot_uuid", uuid);
     reasonSection.classList.add("hidden");
     cardsSection.classList.remove("hidden");
     setStatus("Draw your first card.");
@@ -189,7 +183,7 @@ drawBtn.addEventListener("click", async () => {
     const slot = cardSlots[drawCount];
     const slug = newest.toLowerCase().replace(/ /g, "_");
     const front = slot.querySelector(".card-front");
-    front.innerHTML = `<img src="/static/cards/${slug}.jpg" alt="${newest}">`;
+    front.innerHTML = `<img src="/cards/${slug}.jpg" alt="${newest}">`;
     slot.querySelector(".card-name").textContent = newest;
     slot.classList.add("revealed");
     drawCount = cards.length;

@@ -3,10 +3,6 @@ import json
 import requests
 from openai import OpenAI
 
-
-
-client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
-
 AI_DESCRIPTION = {
     "name":"Caine",
     "system_prompt": """
@@ -86,6 +82,8 @@ Keep interpretations concise but meaningful.
 }
 
 def ai_message(reason, card_list):
+    client = OpenAI(api_key=API_KEY.value, base_url=BASE_URL)
+
     messages = [
             {"role": "system", "content": AI_DESCRIPTION["system_prompt"]},
             {"role": "user", "content": f"""
